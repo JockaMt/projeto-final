@@ -9,7 +9,5 @@ public class Main {
 		System.out.println(h1.getID());		
 		System.out.println(h2.getID());
 		System.out.println(h3.getID());
-
-		}
 	}
-    
+}
