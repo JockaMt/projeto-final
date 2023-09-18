@@ -1,19 +1,26 @@
 package com.classes;
 
 public class Employee extends Person {
-    
-	public String getName() {
-		return name;
+	private Double wage;
+	private String role;
+
+	public Employee (String name, String sex, int age, String role, Double wage) {
+		super(name, sex, age);
+		setRole(role);
+		setWage(wage);
 	}
-	
-	public int getAge() {
-		return age;
+
+	private void setRole(String role) {
+		this.role = role;
 	}
-	
-	public String getSex() {
-		return sex;
+	public String getRole() {
+		return role;
 	}
-	
-	public Double wage;
-	public String role;
+
+	private void setWage(Double wage) {
+		this.wage = wage;
+	}
+	public Double getWage() {
+		return wage;
+	}
 }

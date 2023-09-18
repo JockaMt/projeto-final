@@ -1,19 +1,36 @@
 package com.classes;
 
 public class Person {
-    public String name;
-    public String sex;
-    public int age;
-    
-	public void setName (String newName) {
+    private String name;
+    private String sex;
+    private int age;
+
+	public Person (String name, String sex, int age) {
+		setName(name);
+		setSex(sex);
+		setAge(age);
+	}
+
+	private void setName (String newName) {
 		this.name = newName;
 	}
+	public String getName() {
+		return name;
+	}
 	
-	public void setSex (String newSex) {
+	private void setSex (String newSex) {
 		this.sex = newSex;
 	}
+	public String getSex() {
+		return sex;
+	}
 	
-	public void setAge (int newAge) {
+	private void setAge (int newAge) {
 		this.age = newAge;
 	}
+	public int getAge() {
+		return age;
+	}
 }
+
+// Ready for deploy
