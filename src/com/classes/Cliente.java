@@ -12,7 +12,6 @@ public class Cliente extends Person {
         this.type = type;
     }
     public String getType () {
-        // Cliente normal, vip, permuta, etc...
         return this.type;
     }
 }

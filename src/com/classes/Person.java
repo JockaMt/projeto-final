@@ -32,5 +32,3 @@ public class Person {
 		return age;
 	}
 }
-
-// Ready for deploy
