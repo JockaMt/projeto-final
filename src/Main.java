@@ -1,8 +1,18 @@
 import com.classes.CleaningStaff;
+import com.classes.Employee;
 import java.util.Scanner;
+import java.util.ArrayList;
 
 public class Main {
+
+	//Iniciando uma lista de empregados.
+	ArrayList<Employee> empregados = new ArrayList<Employee>();
+
 	public static void main(String[] args) {
+
+		//Métodos static precisam de uma instância da própria classe para acessar o conteúdo fora dela.
+		Main m = new Main();
+		m.empregados.add(new CleaningStaff("Jockas", "Masculino", 23, 1930.0)); //Adicionando um funcionário à lista.
 
 		Scanner scanner = new Scanner(System.in);
 		int start;
@@ -54,11 +64,6 @@ public class Main {
 
         scanner.close();
 
-		CleaningStaff s1 = new CleaningStaff("Jockas", "Masculino", 23, "CleaningStaff", 1930.0);
-
-		System.out.println(s1.getRole());
-		System.out.println(s1.getAge());
-		System.out.println(s1.getName());
-		System.out.println(s1.getWage());
+		System.out.println(m.empregados.get(0).toString()); //Printando todas as informações com um só método.
 	}
 }
