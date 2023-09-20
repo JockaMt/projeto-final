@@ -23,4 +23,8 @@ public class Employee extends Person {
 	public Double getWage() {
 		return wage;
 	}
+	
+	public String toString () {
+		return "Nome: "+getName()+"\nIdade: "+getAge()+"\nSexo: "+getSex()+"\nCargo: "+getRole()+"\nSalário: "+getWage();
+	}
 }
