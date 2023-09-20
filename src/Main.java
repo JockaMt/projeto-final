@@ -1,4 +1,3 @@
-import com.Hotel;
 import com.classes.CleaningStaff;
 import java.util.Scanner;
 
@@ -54,15 +53,6 @@ public class Main {
         } while (start != 5);
 
         scanner.close();
-
-
-		Hotel h1 = new Hotel();		
-		Hotel h2 = new Hotel();
-		Hotel h3 = new Hotel();
-
-		System.out.println(h1.getID());		
-		System.out.println(h2.getID());
-		System.out.println(h3.getID());
 
 		CleaningStaff s1 = new CleaningStaff("Jockas", "Masculino", 23, "CleaningStaff", 1930.0);
 
