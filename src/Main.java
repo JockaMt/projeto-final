@@ -5,15 +5,7 @@ import java.util.ArrayList;
 
 public class Main {
 
-	//Iniciando uma lista de empregados.
-	ArrayList<Employee> empregados = new ArrayList<Employee>();
-
 	public static void main(String[] args) {
-
-		//Métodos static precisam de uma instância da própria classe para acessar o conteúdo fora dela.
-		Main m = new Main();
-		m.empregados.add(new CleaningStaff("Jockas", "Masculino", 23, 1930.0)); //Adicionando um funcionário à lista.
-
 		Scanner scanner = new Scanner(System.in);
 		int start;
 
@@ -63,7 +55,5 @@ public class Main {
         } while (start != 5);
 
         scanner.close();
-
-		System.out.println(m.empregados.get(0).toString()); //Printando todas as informações com um só método.
 	}
 }
