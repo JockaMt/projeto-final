@@ -1,4 +1,4 @@
-import com.Hotel;
+import con.Hotel;
 // import java.util.Scanner;
 // import java.util.ArrayList;
 
