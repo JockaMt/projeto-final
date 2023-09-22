@@ -16,10 +16,11 @@ public class Hotel {
     private static int count = 0;
     private int id = 1;
 
-    // Iniciando uma lista de empregados.
+    // #LISTAS01
     private ArrayList<Employee> empregados = new ArrayList<Employee>();
     private ArrayList<Cliente> clientes = new ArrayList<Cliente>();
     private ArrayList<Room> quartos = new ArrayList<Room>();
+    // #LISTAS01
 
     public Hotel() {
         id += count;
@@ -33,8 +34,7 @@ public class Hotel {
     public void addEmployee() {
         int start;
         do {
-            System.out.println(
-                    linha + "\nBem Vindo! Você está entrando ao Hall de comando do Hotel " + getID() + "\n" + linha);
+            System.out.println(linha + "\nBem Vindo! Você está entrando ao Hall de comando do Hotel " + getID() + "\n" + linha);
             System.out.println("Escolha as opções de comando a seguir!\n" + linha);
             System.out.println("Selecione uma opção:");
             System.out.println("1. Criar funcionário novo");
@@ -44,6 +44,7 @@ public class Hotel {
             System.out.println("5. Ver quartos");
             System.out.println("6. Registrar um novo cliente em alguns dos quartos");
             System.out.println("7. Sair\n" + linha);
+            // TODO: Precisamos fazer um CRUD para cada lista pesquise #LISTAS01, não precisa ter o update. (CRD)
             start = scanner.nextInt();
             switch (start) {
                 case 1:
@@ -83,7 +84,8 @@ public class Hotel {
                             switch (empregados.get(i).getRole()) {
                                 case "Admnistração":
                                     AdmnistrationStaff a = (AdmnistrationStaff) empregados.get(i);
-                                    // a.payEmployee(a);
+                                    // a.payEmployee(a); #
+                                    // TODO: Precisamos fazer com que as funções de cada classe funcione, nem que seja um print.
                                     System.out.println(a.getName());
                                     break;
                                 case "Recepção":
@@ -107,7 +109,7 @@ public class Hotel {
                     // System.console().readLine();
                     break;
                 case 3:
-                    for (int i = 0; i < empregados.size(); i++){
+                    for (int i = 0; i < empregados.size(); i++) {
                         System.out.println(linha + "\nID: " + empregados.get(i).getID() + "\n" + empregados.get(i));
                     }
                     System.out.println("Pressione Enter para continuar...");
@@ -119,6 +121,11 @@ public class Hotel {
                     System.out.println(linha + "Sala " + newRoom.getID() + " adicionada!");
                     break;
                 case 5:
+                    for (int i = 0; i < quartos.size(); i++) {
+                        System.out.println(linha + "\nID: " + quartos.get(i).getID() + "\n" + quartos.get(i));
+                    }
+                    System.out.println("Pressione Enter para continuar...");
+                    System.console().readLine();
                     break;
                 case 6:
                     addCliente();
@@ -134,10 +141,10 @@ public class Hotel {
 
     public void addCliente() {
         if (verifyOpen()) {
-            if (verifyRooms()){
+            if (verifyRooms()) {
                 clientes.add(clientes.size(), new Cliente("test", "M", 1, "Pro"));
-            }
-            else{
+                // TODO: Precisamos fazer um menu para adicionar os clientes
+            } else {
                 System.out.println("O Hotel não possúi quartos disponíveis.");
             }
         } else {
@@ -145,44 +152,55 @@ public class Hotel {
         }
     }
 
-    public Boolean verifyOpen(){
+    public Boolean verifyOpen() {
+
+        /* Como no diagrama temos que só podemos colocar clientes se todas as vagas
+           estiverem ocupadas, fazemos essa verificação.
+           Uma lista de booleanos, se toda a lista for true, então o hotel tem todas as
+           funcões ativas. */
+
         boolean[] n = new boolean[4];
-        for (int i = 0; i < empregados.size(); i++){
-            if(empregados.get(i).getRole() == "Admnistração"){
+        for (int i = 0; i < empregados.size(); i++) {
+            if (empregados.get(i).getRole() == "Admnistração") {
                 n[0] = true;
                 break;
             }
         }
-        for (int i = 0; i < empregados.size(); i++){
-            if(empregados.get(i).getRole() == "Recepção"){
+        for (int i = 0; i < empregados.size(); i++) {
+            if (empregados.get(i).getRole() == "Recepção") {
                 n[1] = true;
                 break;
             }
         }
-        for (int i = 0; i < empregados.size(); i++){
-            if(empregados.get(i).getRole() == "Cozinha"){
+        for (int i = 0; i < empregados.size(); i++) {
+            if (empregados.get(i).getRole() == "Cozinha") {
                 n[2] = true;
                 break;
             }
         }
-        for (int i = 0; i < empregados.size(); i++){
-            if(empregados.get(i).getRole() == "Limpeza"){
+        for (int i = 0; i < empregados.size(); i++) {
+            if (empregados.get(i).getRole() == "Limpeza") {
                 n[3] = true;
                 break;
             }
         }
-        for (int i = 0; i < n.length; i++){
-            if (n[i] == false){
+        for (int i = 0; i < n.length; i++) {
+            if (n[i] == false) {
                 System.out.println(n[i]);
             }
         }
         return true;
     }
 
-    public Boolean verifyRooms(){
-        if (quartos.size() > 0){
-            for (int i = 0; i < quartos.size(); i++){
-                if (quartos.get(i).getClientes() < 4){
+    public Boolean verifyRooms() {
+
+        /* Aqui verificamos se o hotel tem quartos e se os quartos têm espaço para mais
+           um cliente.
+           No diagrama está escrito que um quarto só pode guardar até 4 cliente.  */
+
+        if (quartos.size() > 0) {
+            for (int i = 0; i < quartos.size(); i++) {
+                if (quartos.get(i).getClientes() < 4) {
                     return true;
                 }
             }
