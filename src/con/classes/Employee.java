@@ -1,4 +1,4 @@
-package com.classes;
+package con.classes;
 
 public class Employee extends Person {
 	private Double wage;

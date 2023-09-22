@@ -1,4 +1,4 @@
-package com.classes;
+package con.classes;
 
 public class ReceptionStaff extends Employee {
     public ReceptionStaff(String name, String sex, int age, Double wage) {

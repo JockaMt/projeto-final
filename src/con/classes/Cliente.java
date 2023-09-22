@@ -1,4 +1,4 @@
-package com.classes;
+package con.classes;
 
 public class Cliente extends Person {
     String type = "Normal";

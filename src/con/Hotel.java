@@ -1,14 +1,15 @@
-package com;
+package con;
 
 import java.util.ArrayList;
+import java.util.Objects;
 import java.util.Scanner;
-import com.classes.Employee;
-import com.classes.KitchenStaff;
-import com.classes.ReceptionStaff;
-import com.classes.Room;
-import com.classes.AdmnistrationStaff;
-import com.classes.CleaningStaff;
-import com.classes.Cliente;
+import con.classes.Employee;
+import con.classes.KitchenStaff;
+import con.classes.ReceptionStaff;
+import con.classes.Room;
+import con.classes.AdmnistrationStaff;
+import con.classes.CleaningStaff;
+import con.classes.Cliente;
 
 public class Hotel {
     Scanner scanner = new Scanner(System.in);
@@ -17,9 +18,9 @@ public class Hotel {
     private int id = 1;
 
     // #LISTAS01
-    private ArrayList<Employee> empregados = new ArrayList<Employee>();
-    private ArrayList<Cliente> clientes = new ArrayList<Cliente>();
-    private ArrayList<Room> quartos = new ArrayList<Room>();
+    private final ArrayList<Employee> empregados = new ArrayList<Employee>();
+    private final ArrayList<Cliente> clientes = new ArrayList<Cliente>();
+    private final ArrayList<Room> quartos = new ArrayList<Room>();
     // #LISTAS01
 
     public Hotel() {
@@ -79,25 +80,24 @@ public class Hotel {
                 case 2:
                     System.out.print(linha + "\nDigite o ID do funcionário: ");
                     int id = scanner.nextInt();
-                    for (int i = 0; i < empregados.size(); i++) {
-                        if (empregados.get(i).getID() == id) {
-                            switch (empregados.get(i).getRole()) {
+                    for (Employee empregado : empregados) {
+                        if (empregado.getID() == id) {
+                            switch (empregado.getRole()) {
                                 case "Admnistração":
-                                    AdmnistrationStaff a = (AdmnistrationStaff) empregados.get(i);
+                                    AdmnistrationStaff a = (AdmnistrationStaff) empregado;
                                     System.out.print(linha + "\nDigite o ID do funcionário que deseja pagar: ");
                                     int empregadoID = scanner.nextInt();
                                     System.out.println("Deseja dar um aumento? S/N");
-                                    String escolha = scanner.next();
-                                    if (escolha.toLowerCase().equals("s")){
+                                    String escolha;
+                                    escolha = scanner.next();
+                                    if (escolha.equalsIgnoreCase("s")) {
                                         System.out.print(linha + "\nDigite o valor do aumento: ");
                                         Double aumento = scanner.nextDouble();
                                         System.out.println(linha);
                                         a.payEmployee(empregados.get(empregadoID - 1), aumento);
-                                    } else if (escolha.toLowerCase().equals("n")){
+                                    } else if (escolha.equalsIgnoreCase("n")) {
                                         a.payEmployee(empregados.get(empregadoID));
                                     }
-                                    System.out.println("Pressione Enter para continuar...");
-                                    System.console().readLine();
                                     // TODO: Precisamos fazer com que as funções de cada classe funcione, nem que seja um print.
                                     break;
                                 case "Recepção":
@@ -117,15 +117,11 @@ public class Hotel {
                             }
                         }
                     }
-                    // System.out.println("Pressione Enter para continuar...");
-                    // System.console().readLine();
                     break;
                 case 3:
-                    for (int i = 0; i < empregados.size(); i++) {
-                        System.out.println(linha + "\nID: " + empregados.get(i).getID() + "\n" + empregados.get(i));
+                    for (Employee empregado : empregados) {
+                        System.out.println(linha + "\nID: " + empregado.getID() + "\n" + empregado);
                     }
-                    System.out.println("Pressione Enter para continuar...");
-                    System.console().readLine();
                     break;
                 case 4:
                     Room newRoom = new Room();
@@ -133,11 +129,9 @@ public class Hotel {
                     System.out.println(linha + "Sala " + newRoom.getID() + " adicionada!");
                     break;
                 case 5:
-                    for (int i = 0; i < quartos.size(); i++) {
-                        System.out.println(linha + "\nID: " + quartos.get(i).getID() + "\n" + quartos.get(i));
+                    for (Room quarto : quartos) {
+                        System.out.println(linha + "\nID: " + quarto.getID() + "\n" + quarto);
                     }
-                    System.out.println("Pressione Enter para continuar...");
-                    System.console().readLine();
                     break;
                 case 6:
                     addCliente();
@@ -172,33 +166,33 @@ public class Hotel {
            funcões ativas. */
 
         boolean[] n = new boolean[4];
-        for (int i = 0; i < empregados.size(); i++) {
-            if (empregados.get(i).getRole() == "Admnistração") {
+        for (Employee empregado : empregados) {
+            if (Objects.equals(empregado.getRole(), "Admnistração")) {
                 n[0] = true;
                 break;
             }
         }
-        for (int i = 0; i < empregados.size(); i++) {
-            if (empregados.get(i).getRole() == "Recepção") {
+        for (Employee empregado : empregados) {
+            if (Objects.equals(empregado.getRole(), "Recepção")) {
                 n[1] = true;
                 break;
             }
         }
-        for (int i = 0; i < empregados.size(); i++) {
-            if (empregados.get(i).getRole() == "Cozinha") {
+        for (Employee empregado : empregados) {
+            if (Objects.equals(empregado.getRole(), "Cozinha")) {
                 n[2] = true;
                 break;
             }
         }
-        for (int i = 0; i < empregados.size(); i++) {
-            if (empregados.get(i).getRole() == "Limpeza") {
+        for (Employee empregado : empregados) {
+            if (Objects.equals(empregado.getRole(), "Limpeza")) {
                 n[3] = true;
                 break;
             }
         }
-        for (int i = 0; i < n.length; i++) {
-            if (n[i] == false) {
-                System.out.println(n[i]);
+        for (boolean b : n) {
+            if (!b) {
+                return false;
             }
         }
         return true;
@@ -210,9 +204,9 @@ public class Hotel {
            um cliente.
            No diagrama está escrito que um quarto só pode guardar até 4 cliente.  */
 
-        if (quartos.size() > 0) {
-            for (int i = 0; i < quartos.size(); i++) {
-                if (quartos.get(i).getClientes() < 4) {
+        if (!quartos.isEmpty()) {
+            for (Room quarto : quartos) {
+                if (quarto.getClientes() < 4) {
                     return true;
                 }
             }

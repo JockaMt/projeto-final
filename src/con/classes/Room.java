@@ -1,4 +1,4 @@
-package com.classes;
+package con.classes;
 
 public class Room {
     private static int count = 0;
