@@ -5,6 +5,7 @@ import java.util.Scanner;
 import com.classes.Employee;
 import com.classes.KitchenStaff;
 import com.classes.ReceptionStaff;
+import com.classes.Room;
 import com.classes.AdmnistrationStaff;
 import com.classes.CleaningStaff;
 import com.classes.Cliente;
@@ -14,11 +15,11 @@ public class Hotel {
     String linha = "========================================================================";
     private static int count = 0;
     private int id = 1;
-    private Boolean open = false;
 
     // Iniciando uma lista de empregados.
     private ArrayList<Employee> empregados = new ArrayList<Employee>();
     private ArrayList<Cliente> clientes = new ArrayList<Cliente>();
+    private ArrayList<Room> quartos = new ArrayList<Room>();
 
     public Hotel() {
         id += count;
@@ -40,8 +41,9 @@ public class Hotel {
             System.out.println("2. Comandar funções de Funcionários");
             System.out.println("3. Ver os funcionários do sistema");
             System.out.println("4. Registrar um novo quartos");
-            System.out.println("5. Registrar um novo cliente em alguns dos quartos");
-            System.out.println("6. Sair\n" + linha);
+            System.out.println("5. Ver quartos");
+            System.out.println("6. Registrar um novo cliente em alguns dos quartos");
+            System.out.println("7. Sair\n" + linha);
             start = scanner.nextInt();
             switch (start) {
                 case 1:
@@ -112,24 +114,80 @@ public class Hotel {
                     System.console().readLine();
                     break;
                 case 4:
+                    Room newRoom = new Room();
+                    quartos.add(quartos.size(), newRoom);
+                    System.out.println(linha + "Sala " + newRoom.getID() + " adicionada!");
                     break;
                 case 5:
                     break;
                 case 6:
-                    System.out.println("Opção inválida. Tente novamente.");
+                    addCliente();
+                    break;
+                case 7:
                     break;
                 default:
                     System.out.println("Opção inválida.\n" + linha);
                     break;
             }
-        } while (start != 6);
+        } while (start != 7);
     }
 
     public void addCliente() {
-        if (open) {
-
+        if (verifyOpen()) {
+            if (verifyRooms()){
+                clientes.add(clientes.size(), new Cliente("test", "M", 1, "Pro"));
+            }
+            else{
+                System.out.println("O Hotel não possúi quartos disponíveis.");
+            }
         } else {
             System.out.println("O hotel não está funcionando.\nFuncionários insuficientes.");
         }
+    }
+
+    public Boolean verifyOpen(){
+        boolean[] n = new boolean[4];
+        for (int i = 0; i < empregados.size(); i++){
+            if(empregados.get(i).getRole() == "Admnistração"){
+                n[0] = true;
+                break;
+            }
+        }
+        for (int i = 0; i < empregados.size(); i++){
+            if(empregados.get(i).getRole() == "Recepção"){
+                n[1] = true;
+                break;
+            }
+        }
+        for (int i = 0; i < empregados.size(); i++){
+            if(empregados.get(i).getRole() == "Cozinha"){
+                n[2] = true;
+                break;
+            }
+        }
+        for (int i = 0; i < empregados.size(); i++){
+            if(empregados.get(i).getRole() == "Limpeza"){
+                n[3] = true;
+                break;
+            }
+        }
+        for (int i = 0; i < n.length; i++){
+            if (n[i] == false){
+                System.out.println(n[i]);
+            }
+        }
+        return true;
+    }
+
+    public Boolean verifyRooms(){
+        if (quartos.size() > 0){
+            for (int i = 0; i < quartos.size(); i++){
+                if (quartos.get(i).getClientes() < 4){
+                    return true;
+                }
+            }
+            return false;
+        }
+        return false;
     }
 }

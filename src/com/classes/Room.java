@@ -21,4 +21,8 @@ public class Room {
     public void removeClient(int slot) {
         clientes[slot] = null;
     }
+
+    public int getClientes() {
+        return clientes.length;
+    }
 }
