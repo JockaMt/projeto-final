@@ -1,6 +1,6 @@
 package com.classes;
 
-public class Person {
+public abstract class Person {
 	private static int count = 0;
     private int id = 1;
     private String name;
