@@ -14,8 +14,13 @@ public class Room {
         return id;
     }
 
-    public void addCliente(int slot, Cliente cliente) {
-        clientes[slot] = cliente;
+    public void addCliente(Cliente cliente) {
+        for (int i = 0; i < clientes.length; i++){
+            if (clientes[i] == null){
+                clientes[i] = cliente;
+                return;
+            }
+        }
     }
 
     public void removeClient(int slot) {
@@ -24,5 +29,15 @@ public class Room {
 
     public int getClientes() {
         return clientes.length;
+    }
+
+    public void showClientes() {
+        for (int i = 0; i < clientes.length; i++){
+            System.out.println(clientes[i].getID() + " " + clientes[i].getName());
+        }
+    }
+
+    public void clear() {
+        System.out.println("Quarto limpo.");
     }
 }

@@ -27,4 +27,12 @@ public class Employee extends Person {
 	public String toString () {
 		return "Nome: "+getName()+"\nIdade: "+getAge()+"\nSexo: "+getSex()+"\nCargo: "+getRole()+"\nSalário: "+getWage();
 	}
+
+	public void recieveWage() {
+		System.out.println(getName() + " foi pago em " + getWage());
+	}
+	public void recieveWage(Double aumento) {
+		Double money = getWage() + aumento;
+		System.out.println(getName() + " foi pago em " + money);
+	}
 }

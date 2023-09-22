@@ -7,6 +7,9 @@ public class AdmnistrationStaff extends Employee {
     }
     
     public void payEmployee (Employee e) {
-        System.out.println("Not implemented!");
+        e.recieveWage();
+    }
+    public void payEmployee (Employee e, Double aumento) {
+        e.recieveWage(aumento);
     }
 }
