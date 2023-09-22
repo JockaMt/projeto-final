@@ -8,19 +8,20 @@ public class Main {
 		ArrayList<Hotel> hoteis = new ArrayList<Hotel>();
 		Scanner scanner = new Scanner(System.in);
 		int start;
+        String linha = "========================================================================";
 
         do {
-			System.out.println("=======================================================================");
+			System.out.println(linha);
 			System.out.println("Bem Vindo! Você está entrando ao gerenciador de Hoteis!");
-			System.out.println("=======================================================================");
+			System.out.println(linha);
 			System.out.println("Escolha as opções de comando a seguir!");
-			System.out.println("=======================================================================");
+			System.out.println(linha);
             System.out.println("Selecione uma opção:");
             System.out.println("1. Criar novo hotel");
             System.out.println("2. Deletar hoteis");
 			System.out.println("3. Ver hoteis");
             System.out.println("4. Sair");
-			System.out.println("=======================================================================");
+			System.out.println("=");
 
             start = scanner.nextInt();
 
@@ -35,8 +36,7 @@ public class Main {
 					System.out.println("Irá ver todos os hoteis!");
 					break;
                 case 4:
-                    System.out.println("Saindo do programa");
-					System.out.println("=======================================================================");
+                    System.out.println("Saindo do programa...\n" + linha);
                     break;
 					default:
                     System.out.println("Opção inválida. Tente novamente.");
