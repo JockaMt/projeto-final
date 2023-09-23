@@ -1,15 +1,15 @@
-package con;
+package data;
 
 import java.util.ArrayList;
 import java.util.Objects;
 import java.util.Scanner;
-import con.classes.Employee;
-import con.classes.KitchenStaff;
-import con.classes.ReceptionStaff;
-import con.classes.Room;
-import con.classes.AdmnistrationStaff;
-import con.classes.CleaningStaff;
-import con.classes.Cliente;
+import data.classes.Employee;
+import data.classes.KitchenStaff;
+import data.classes.ReceptionStaff;
+import data.classes.Room;
+import data.classes.AdmnistrationStaff;
+import data.classes.CleaningStaff;
+import data.classes.Cliente;
 
 public class Hotel {
     Scanner scanner = new Scanner(System.in);

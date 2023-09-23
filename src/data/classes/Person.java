@@ -1,4 +1,4 @@
-package con.classes;
+package data.classes;
 
 public abstract class Person {
 	private static int count = 0;
