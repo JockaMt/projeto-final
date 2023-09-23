@@ -109,16 +109,14 @@ public class Hotel {
                                     // k.cook();
                                     break;
                                 case "Limpeza":
-                                    CleaningStaff c = (CleaningStaff) empregados.get(i);
-                                    System.out.println("Deseja limpar os quartos vazios? S/N")
+                                    CleaningStaff c = (CleaningStaff) empregado;
+                                    System.out.println("Deseja limpar os quartos vazios? S/N");
                                     String limpar_quartos = scanner.next();
-                                    if (limpar_quartos.toLowerCase().equals("s")){
-                                        System.out.println("Realizada a limpeza dos quartos vazios.")
-                                    } else if (limpar_quartos.toLowerCase().equals("n")){
-                                        System.out.println("Os quartos continuarão fechados até a limpeza ser realizada.")
+                                    if (limpar_quartos.equalsIgnoreCase("s")){
+                                        c.clearRoom();
+                                    } else if (limpar_quartos.equalsIgnoreCase("n")){
+                                        System.out.println("Os quartos continuarão fechados até a hora da limpeza.");
                                     }
-                                    System.out.println("Pressione Enter para continuar...")
-                                    System.console().readLine();
                                     // ainda em teste para limpeza de quarto específico
                                     break;
                                 default:
