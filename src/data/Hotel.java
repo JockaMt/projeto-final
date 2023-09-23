@@ -11,8 +11,7 @@ import data.classes.CleaningStaff;
 import data.classes.Cliente;
 
 public class Hotel {
-    Scanner scanner = new Scanner(System.in);
-    String linha = "========================================================================";
+    private final Scanner scanner = new Scanner(System.in);
     private static int count = 0;
     private int id = 1;
 
@@ -31,9 +30,10 @@ public class Hotel {
         return id;
     }
 
-    public void addEmployee() {
+    public void actions() {
         int start;
         do {
+            String linha = "========================================================================";
             System.out.println(linha + "\nBem Vindo! Você está entrando ao Hall de comando do Hotel " + getID() + "\n" + linha);
             System.out.println("Escolha as opções de comando a seguir!\n" + linha);
             System.out.println("Selecione uma opção:");
@@ -72,6 +72,7 @@ public class Hotel {
                             break;
                         default:
                             System.out.println("Opção inválida.\n" + linha);
+                            break;
                     }
                     break;
                 case 2:
@@ -95,7 +96,6 @@ public class Hotel {
                                     } else if (escolha.equalsIgnoreCase("n")) {
                                         a.payEmployee(empregados.get(empregadoID));
                                     }
-                                    // TODO: Precisamos fazer com que as funções de cada classe funcione, nem que seja um print.
                                     break;
                                 case "Recepção":
                                     ReceptionStaff r = (ReceptionStaff) empregado;
@@ -113,6 +113,8 @@ public class Hotel {
                                     }
                                     break;
                                 case "Cozinha":
+                                    // TODO: Precisamos fazer com que as funções de cada classe funcione, nem que seja um print.
+                                    // Falta a parte da cozinha.
                                     KitchenStaff k = (KitchenStaff) empregado;
                                     k.cook();
                                     break;
