@@ -1,10 +1,10 @@
 package data.classes;
 
 public class Employee extends Person {
-	private Double wage;
+	private double wage;
 	private String role;
 
-	public Employee (String name, String sex, int age, String role, Double wage) {
+	public Employee (String name, String sex, int age, String role, double wage) {
 		super(name, sex, age);
 		setRole(role);
 		setWage(wage);
@@ -28,11 +28,11 @@ public class Employee extends Person {
 		return "Nome: "+getName()+"\nIdade: "+getAge()+"\nSexo: "+getSex()+"\nCargo: "+getRole()+"\nSalário: "+getWage();
 	}
 
-	public void recieveWage() {
+	public void receiveWage() {
 		System.out.println(getName() + " foi pago em " + getWage());
 	}
-	public void recieveWage(Double aumento) {
-		Double money = getWage() + aumento;
+	public void receiveWage(double aumento) {
+		double money = getWage() + aumento;
 		System.out.println(getName() + " foi pago em " + money);
 	}
 }
