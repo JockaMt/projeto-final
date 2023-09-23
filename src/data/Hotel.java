@@ -7,7 +7,7 @@ import data.classes.Employee;
 import data.classes.KitchenStaff;
 import data.classes.ReceptionStaff;
 import data.classes.Room;
-import data.classes.AdmnistrationStaff;
+import data.classes.AdministrationStaff;
 import data.classes.CleaningStaff;
 import data.classes.Cliente;
 
@@ -18,9 +18,9 @@ public class Hotel {
     private int id = 1;
 
     // #LISTAS01
-    private final ArrayList<Employee> empregados = new ArrayList<Employee>();
-    private final ArrayList<Cliente> clientes = new ArrayList<Cliente>();
-    private final ArrayList<Room> quartos = new ArrayList<Room>();
+    private final ArrayList<Employee> empregados = new ArrayList<>();
+    private final ArrayList<Cliente> clientes = new ArrayList<>();
+    private final ArrayList<Room> quartos = new ArrayList<>();
     // #LISTAS01
 
     public Hotel() {
@@ -62,7 +62,7 @@ public class Hotel {
                     Double wage = scanner.nextDouble();
                     switch (choice) {
                         case 1:
-                            empregados.add(empregados.size(), new AdmnistrationStaff(name, sex, age, wage));
+                            empregados.add(empregados.size(), new AdministrationStaff(name, sex, age, wage));
                             break;
                         case 2:
                             empregados.add(empregados.size(), new ReceptionStaff(name, sex, age, wage));
@@ -83,8 +83,8 @@ public class Hotel {
                     for (Employee empregado : empregados) {
                         if (empregado.getID() == id) {
                             switch (empregado.getRole()) {
-                                case "Admnistração":
-                                    AdmnistrationStaff a = (AdmnistrationStaff) empregado;
+                                case "Administração":
+                                    AdministrationStaff a = (AdministrationStaff) empregado;
                                     System.out.print(linha + "\nDigite o ID do funcionário que deseja pagar: ");
                                     int empregadoID = scanner.nextInt();
                                     System.out.println("Deseja dar um aumento? S/N");
@@ -101,12 +101,12 @@ public class Hotel {
                                     // TODO: Precisamos fazer com que as funções de cada classe funcione, nem que seja um print.
                                     break;
                                 case "Recepção":
-                                    // ReceptionStaff r = (ReceptionStaff) empregados.get(i);
-                                    // r.showRoom(id);
+                                    ReceptionStaff r = (ReceptionStaff) empregado;
+                                    r.showRoom(id);
                                     break;
                                 case "Cozinha":
-                                    // KitchenStaff k = (KitchenStaff) empregados.get(i);
-                                    // k.cook();
+                                    KitchenStaff k = (KitchenStaff) empregado;
+                                    k.cook();
                                     break;
                                 case "Limpeza":
                                     CleaningStaff c = (CleaningStaff) empregado;
@@ -169,12 +169,12 @@ public class Hotel {
 
         /* Como no diagrama temos que só podemos colocar clientes se todas as vagas
            estiverem ocupadas, fazemos essa verificação.
-           Uma lista de booleanos, se toda a lista for true, então o hotel tem todas as
-           funcões ativas. */
+           Uma lista de boolean, se toda a lista for true, então o hotel tem todas as
+           funções ativas. */
 
         boolean[] n = new boolean[4];
         for (Employee empregado : empregados) {
-            if (Objects.equals(empregado.getRole(), "Admnistração")) {
+            if (Objects.equals(empregado.getRole(), "Administração")) {
                 n[0] = true;
                 break;
             }

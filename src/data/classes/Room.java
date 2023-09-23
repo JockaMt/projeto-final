@@ -3,7 +3,7 @@ package data.classes;
 public class Room {
     private static int count = 0;
     private int id = 1;
-    private Cliente[] clientes = new Cliente[4];
+    private final Cliente[] clientes = new Cliente[4];
 
     public Room () {
         id += count;
@@ -15,9 +15,9 @@ public class Room {
     }
 
     public void addCliente(Cliente cliente) {
-        for (int i = 0; i < clientes.length; i++){
-            if (clientes[i] == null){
-                clientes[i] = cliente;
+        for (int index = 0; index < clientes.length; index++){
+            if (clientes[index] == null){
+                clientes[index] = cliente;
                 return;
             }
         }
@@ -32,8 +32,8 @@ public class Room {
     }
 
     public void showClientes() {
-        for (int i = 0; i < clientes.length; i++){
-            System.out.println(clientes[i].getID() + " " + clientes[i].getName());
+        for (Cliente cliente : clientes) {
+            System.out.println(cliente.getID() + " " + cliente.getName());
         }
     }
 
