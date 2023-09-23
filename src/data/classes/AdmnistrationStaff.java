@@ -6,6 +6,7 @@ public class AdmnistrationStaff extends Employee {
         super(name, sex, age, "Admnistração", wage);
     }
 
+
     
     public void payEmployee (Employee e) {
         e.recieveWage();
