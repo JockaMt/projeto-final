@@ -17,24 +17,51 @@ public class ReceptionStaff extends Employee {
     public void addCliente(ArrayList<Employee> empregados, ArrayList<Room> quartos, ArrayList<Cliente> clientes, String linha, Scanner scanner) {
         if (verifyOpen(empregados)) {
             if (verifyRooms(quartos)) {
-                // TODO: Precisamos fazer um menu para adicionar os clientes
-                Cliente cliente = new Cliente("test", "M", 1, "Pro");
-                clientes.add(clientes.size(), cliente);
-                System.out.print(linha + "\nEscolha um quarto: ");
-                int roomID = scanner.nextInt();
-                try {
-                    quartos.get(roomID - 1).addCliente(cliente);
-                    System.out.println(cliente.getName() + " adicionado ao quarto " + roomID);
-                } catch (Exception e) {
-                    System.out.println("Este quarto não existe");
+                System.out.println(linha + "\nMenu de Adição de Cliente");
+                System.out.println("1. Adicionar Cliente");
+                System.out.println("2. Voltar ao Menu Principal");
+                System.out.print("Escolha uma opção: ");
+    
+                int escolha = scanner.nextInt();
+    
+                switch (escolha) {
+                    case 1:
+                        System.out.print("Nome do Cliente: ");
+                        String nomeCliente = scanner.next();
+                        System.out.print("Sexo do Cliente: ");
+                        String sexoCliente = scanner.next();
+                        System.out.print("Idade do Cliente: ");
+                        int idadeCliente = scanner.nextInt();
+                        System.out.print("Tipo do Cliente (Ex: Pro): ");
+                        String tipoCliente = scanner.next();
+    
+                        Cliente cliente = new Cliente(nomeCliente, sexoCliente, idadeCliente, tipoCliente);
+                        clientes.add(cliente);
+    
+                        System.out.print("Escolha um quarto: ");
+                        int roomID = scanner.nextInt();
+    
+                        try {
+                            quartos.get(roomID - 1).addCliente(cliente);
+                            System.out.println(cliente.getName() + " adicionado ao quarto " + roomID);
+                        } catch (IndexOutOfBoundsException e) {
+                            System.out.println("Este quarto não existe");
+                        }
+                        break;
+                    case 2:
+                        break;
+                    default:
+                        System.out.println("Opção inválida");
+                        break;
                 }
             } else {
-                System.out.println("O Hotel não possúi quartos disponíveis.");
+                System.out.println("O Hotel não possuí quartos disponíveis.");
             }
         } else {
             System.out.println("O hotel não está funcionando.\nFuncionários insuficientes.");
         }
     }
+    
     public Boolean verifyRooms(ArrayList<Room> quartos) {
         /* Aqui verificamos se o hotel tem quartos e se os quartos têm espaço para mais
            um cliente.
@@ -86,5 +113,8 @@ public class ReceptionStaff extends Employee {
             }
         }
         return true;
+
+
+
     }
 }
