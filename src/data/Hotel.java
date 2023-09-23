@@ -1,7 +1,6 @@
 package data;
 
 import java.util.ArrayList;
-import java.util.Objects;
 import java.util.Scanner;
 import data.classes.Employee;
 import data.classes.KitchenStaff;
@@ -42,9 +41,7 @@ public class Hotel {
             System.out.println("2. Comandar funções de Funcionários");
             System.out.println("3. Ver os funcionários do sistema");
             System.out.println("4. Registrar um novo quartos");
-            System.out.println("5. Ver quartos");
-            System.out.println("6. Registrar um novo cliente em alguns dos quartos");
-            System.out.println("7. Sair\n" + linha);
+            System.out.println("5. Sair\n" + linha);
             // TODO: Precisamos fazer um CRUD para cada lista pesquise #LISTAS01, não precisa ter o update. (CRD)
             start = scanner.nextInt();
             switch (start) {
@@ -59,7 +56,7 @@ public class Hotel {
                     System.out.print(linha + "\nQual o sexo do funcionário: ");
                     String sex = scanner.next();
                     System.out.print(linha + "\nQuanto esse funcionário vai ganhar: ");
-                    Double wage = scanner.nextDouble();
+                    double wage = scanner.nextDouble();
                     switch (choice) {
                         case 1:
                             empregados.add(empregados.size(), new AdministrationStaff(name, sex, age, wage));
@@ -92,7 +89,7 @@ public class Hotel {
                                     escolha = scanner.next();
                                     if (escolha.equalsIgnoreCase("s")) {
                                         System.out.print(linha + "\nDigite o valor do aumento: ");
-                                        Double aumento = scanner.nextDouble();
+                                        double aumento = scanner.nextDouble();
                                         System.out.println(linha);
                                         a.payEmployee(empregados.get(empregadoID - 1), aumento);
                                     } else if (escolha.equalsIgnoreCase("n")) {
@@ -102,7 +99,18 @@ public class Hotel {
                                     break;
                                 case "Recepção":
                                     ReceptionStaff r = (ReceptionStaff) empregado;
-                                    r.showRoom(id);
+                                    System.out.println(linha + "Olá, me chamo " + r.getName() + " em que posso ajudar?\n1. Cadastrar cliente\n2. Mostrar quartos disponíveis");
+                                    int recepChoice = scanner.nextInt();
+                                    switch (recepChoice){
+                                        case 1:
+                                            r.addCliente(empregados, quartos, clientes, linha, scanner);
+                                            break;
+                                        case 2:
+                                            r.showRoom(quartos, linha);
+                                            break;
+                                        default:
+                                            break;
+                                    }
                                     break;
                                 case "Cozinha":
                                     KitchenStaff k = (KitchenStaff) empregado;
@@ -136,89 +144,11 @@ public class Hotel {
                     System.out.println(linha + "Sala " + newRoom.getID() + " adicionada!");
                     break;
                 case 5:
-                    for (Room quarto : quartos) {
-                        System.out.println(linha + "\nID: " + quarto.getID() + "\n" + quarto);
-                    }
-                    break;
-                case 6:
-                    addCliente();
-                    break;
-                case 7:
                     break;
                 default:
                     System.out.println("Opção inválida.\n" + linha);
                     break;
             }
         } while (start != 7);
-    }
-
-    public void addCliente() {
-        if (verifyOpen()) {
-            if (verifyRooms()) {
-                clientes.add(clientes.size(), new Cliente("test", "M", 1, "Pro"));
-                // TODO: Precisamos fazer um menu para adicionar os clientes
-            } else {
-                System.out.println("O Hotel não possúi quartos disponíveis.");
-            }
-        } else {
-            System.out.println("O hotel não está funcionando.\nFuncionários insuficientes.");
-        }
-    }
-
-    public Boolean verifyOpen() {
-
-        /* Como no diagrama temos que só podemos colocar clientes se todas as vagas
-           estiverem ocupadas, fazemos essa verificação.
-           Uma lista de boolean, se toda a lista for true, então o hotel tem todas as
-           funções ativas. */
-
-        boolean[] n = new boolean[4];
-        for (Employee empregado : empregados) {
-            if (Objects.equals(empregado.getRole(), "Administração")) {
-                n[0] = true;
-                break;
-            }
-        }
-        for (Employee empregado : empregados) {
-            if (Objects.equals(empregado.getRole(), "Recepção")) {
-                n[1] = true;
-                break;
-            }
-        }
-        for (Employee empregado : empregados) {
-            if (Objects.equals(empregado.getRole(), "Cozinha")) {
-                n[2] = true;
-                break;
-            }
-        }
-        for (Employee empregado : empregados) {
-            if (Objects.equals(empregado.getRole(), "Limpeza")) {
-                n[3] = true;
-                break;
-            }
-        }
-        for (boolean b : n) {
-            if (!b) {
-                return false;
-            }
-        }
-        return true;
-    }
-
-    public Boolean verifyRooms() {
-
-        /* Aqui verificamos se o hotel tem quartos e se os quartos têm espaço para mais
-           um cliente.
-           No diagrama está escrito que um quarto só pode guardar até 4 cliente.  */
-
-        if (!quartos.isEmpty()) {
-            for (Room quarto : quartos) {
-                if (quarto.getClientes() < 4) {
-                    return true;
-                }
-            }
-            return false;
-        }
-        return false;
     }
 }

@@ -21,6 +21,8 @@ public class Room {
                 return;
             }
         }
+        System.out.println("Não há vagas neste quarto.");
+        addCliente(cliente);
     }
 
     public void removeClient(int slot) {
@@ -28,7 +30,13 @@ public class Room {
     }
 
     public int getClientes() {
-        return clientes.length;
+        int quantidade = 0;
+        for (Cliente cliente : clientes) {
+            if (cliente != null) {
+                quantidade++;
+            }
+        }
+        return quantidade;
     }
 
     public void showClientes() {
