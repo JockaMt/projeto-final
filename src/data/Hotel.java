@@ -15,13 +15,56 @@ public class Hotel {
     private static int count = 0;
     private int id = 1;
 
+    private final ReceptionStaff receptionStaff;
+
     // #LISTAS01
     private final ArrayList<Employee> empregados = new ArrayList<>();
     private final ArrayList<Cliente> clientes = new ArrayList<>();
     private final ArrayList<Room> quartos = new ArrayList<>();
     // #LISTAS01
 
+    public void addEmployee(Employee employee) {
+        empregados.add(employee);
+    }
+
+    public void listEmployees() {
+        String linha = "========================================================================";
+        System.out.println(linha + "\nLista de Funcionários:\n" + linha);
+        for (Employee empregado : empregados) {
+            System.out.println("ID: " + empregado.getID());
+            System.out.println(empregado.toString());
+            System.out.println(linha);
+        }
+    }
+
+    public void deleteEmployee() {
+
+        String linha = "========================================================================";
+        System.out.println(linha);
+        System.out.print("Digite a ID do funcionário que deseja remover: ");
+        int employeeID = scanner.nextInt();
+        
+        Employee employeeToRemove = null;
+
+        for (Employee empregado : empregados) {
+            if (empregado.getID() == employeeID) {
+                employeeToRemove = empregado;
+                break;
+            }
+        }
+
+        if (employeeToRemove != null) {
+            empregados.remove(employeeToRemove);
+            System.out.println(linha);
+            System.out.println("Funcionário removido com sucesso.");
+        } else {
+            System.out.println(linha);
+            System.out.println("Funcionário com ID " + employeeID + " não encontrado.");
+        }
+    }
+
     public Hotel() {
+            receptionStaff = new ReceptionStaff("Nome do Recepcionista", "Sexo", 25, 3000.0);
         id += count;
         count++;
     }
@@ -38,11 +81,13 @@ public class Hotel {
             System.out.println("Escolha as opções de comando a seguir!\n" + linha);
             System.out.println("Selecione uma opção:");
             System.out.println("1. Criar funcionário novo");
-            System.out.println("2. Comandar funções de Funcionários");
-            System.out.println("3. Ver os funcionários do sistema");
-            System.out.println("4. Registrar um novo quartos");
-            System.out.println("5. Sair\n" + linha);
-            // TODO: Precisamos fazer um CRUD para cada lista pesquise #LISTAS01, não precisa ter o update. (CRD)
+            System.out.println("2. Deletar funcionários na lista");
+            System.out.println("3. Comandar funções de Funcionários");
+            System.out.println("4. Ver os funcionários do sistema");
+            System.out.println("5. Adicionar Clientes");
+            System.out.println("6. Registrar um novo quartos");
+            System.out.println("7. Sair\n" + linha);
+            // TODO: Precisamos fazer um CRUD para cada lista pesquise #LISTAS01, não precisa ter o update. Já foi feito o CRD de funcionários(CRD)
             start = scanner.nextInt();
             switch (start) {
                 case 1:
@@ -76,6 +121,9 @@ public class Hotel {
                     }
                     break;
                 case 2:
+                    deleteEmployee();
+                    break;
+                case 3:
                     System.out.print(linha + "\nDigite o ID do funcionário: ");
                     int id = scanner.nextInt();
                     for (Employee empregado : empregados) {
@@ -135,17 +183,18 @@ public class Hotel {
                         }
                     }
                     break;
-                case 3:
-                    for (Employee empregado : empregados) {
-                        System.out.println(linha + "\nID: " + empregado.getID() + "\n" + empregado);
-                    }
-                    break;
                 case 4:
-                    Room newRoom = new Room();
-                    quartos.add(quartos.size(), newRoom);
-                    System.out.println(linha + "Sala " + newRoom.getID() + " adicionada!");
+                    listEmployees();
                     break;
                 case 5:
+                    receptionStaff.addCliente(empregados, quartos, clientes, linha, scanner);
+                    break;
+                case 6:
+                    Room newRoom = new Room();
+                    quartos.add(quartos.size(), newRoom);
+                    System.out.println(linha + "\nSala "  + newRoom.getID() + " adicionada!");
+                    break;
+                case 7:
                     break;
                 default:
                     System.out.println("Opção inválida.\n" + linha);
