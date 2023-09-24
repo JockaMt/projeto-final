@@ -5,7 +5,7 @@ public class CleaningStaff extends Employee {
         super(name, sex, age, "Limpeza", wage);
     }
 
-    public void clearRoom() {
-        System.out.println("Limpando a quartos vazios");
+    public void clearRoom(Room room) {
+        room.clear();
     }
 }

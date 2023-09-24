@@ -1,6 +1,5 @@
 package data.classes;
 import java.util.ArrayList;
-import java.util.Objects;
 import java.util.Scanner;
 
 public class ReceptionStaff extends Employee {
@@ -14,45 +13,35 @@ public class ReceptionStaff extends Employee {
         }
     }
 
+    public void showClients (ArrayList<Cliente> clientes, String linha) {
+        for (Cliente cliente : clientes) {
+            System.out.println(linha + "\nID: " + cliente.getID() + " ---- " + cliente.getName());
+        }
+    }
+
     public void addCliente(ArrayList<Employee> empregados, ArrayList<Room> quartos, ArrayList<Cliente> clientes, String linha, Scanner scanner) {
         if (verifyOpen(empregados)) {
             if (verifyRooms(quartos)) {
-                System.out.println(linha + "\nMenu de Adição de Cliente");
-                System.out.println("1. Adicionar Cliente");
-                System.out.println("2. Voltar ao Menu Principal");
-                System.out.print("Escolha uma opção: ");
-    
-                int escolha = scanner.nextInt();
-    
-                switch (escolha) {
-                    case 1:
-                        System.out.print("Nome do Cliente: ");
-                        String nomeCliente = scanner.next();
-                        System.out.print("Sexo do Cliente: ");
-                        String sexoCliente = scanner.next();
-                        System.out.print("Idade do Cliente: ");
-                        int idadeCliente = scanner.nextInt();
-                        System.out.print("Tipo do Cliente (Ex: Pro): ");
-                        String tipoCliente = scanner.next();
-    
-                        Cliente cliente = new Cliente(nomeCliente, sexoCliente, idadeCliente, tipoCliente);
-                        clientes.add(cliente);
-    
-                        System.out.print("Escolha um quarto: ");
-                        int roomID = scanner.nextInt();
-    
-                        try {
-                            quartos.get(roomID - 1).addCliente(cliente);
-                            System.out.println(cliente.getName() + " adicionado ao quarto " + roomID);
-                        } catch (IndexOutOfBoundsException e) {
-                            System.out.println("Este quarto não existe");
-                        }
-                        break;
-                    case 2:
-                        break;
-                    default:
-                        System.out.println("Opção inválida");
-                        break;
+                System.out.print(linha + "\nNome do Cliente: ");
+                String nomeCliente = scanner.next();
+                System.out.print(linha + "\nSexo do Cliente: ");
+                String sexoCliente = scanner.next();
+                System.out.print(linha + "\nIdade do Cliente: ");
+                int idadeCliente = scanner.nextInt();
+                System.out.print(linha + "\nTipo do Cliente (Ex: Pro): ");
+                String tipoCliente = scanner.next();
+
+                Cliente cliente = new Cliente(nomeCliente, sexoCliente, idadeCliente, tipoCliente);
+                clientes.add(cliente);
+
+                System.out.print("Escolha um quarto: ");
+                int roomID = scanner.nextInt();
+
+                try {
+                    quartos.get(roomID - 1).addCliente(cliente);
+                    System.out.println(cliente.getName() + " adicionado ao quarto " + roomID);
+                } catch (IndexOutOfBoundsException e) {
+                    System.out.println("Este quarto não existe");
                 }
             } else {
                 System.out.println("O Hotel não possuí quartos disponíveis.");
@@ -61,7 +50,32 @@ public class ReceptionStaff extends Employee {
             System.out.println("O hotel não está funcionando.\nFuncionários insuficientes.");
         }
     }
-    
+
+    public void deleteClient(String linha, Scanner scanner, ArrayList<Cliente> clientes) {
+
+        System.out.println(linha);
+        System.out.print("Digite a ID do cliente que deseja remover: ");
+        int clientID = scanner.nextInt();
+
+        Cliente clientsToRemove = null;
+
+        for (Cliente cliente : clientes) {
+            if (cliente.getID() == clientID) {
+                clientsToRemove = cliente;
+                break;
+            }
+        }
+
+        if (clientsToRemove != null) {
+            clientes.remove(clientsToRemove);
+            System.out.println(linha);
+            System.out.println("Cliente removido com sucesso.");
+        } else {
+            System.out.println(linha);
+            System.out.println("Cliente com ID " + clientID + " não encontrado.");
+        }
+    }
+
     public Boolean verifyRooms(ArrayList<Room> quartos) {
         /* Aqui verificamos se o hotel tem quartos e se os quartos têm espaço para mais
            um cliente.
@@ -84,25 +98,25 @@ public class ReceptionStaff extends Employee {
            funções ativas. */
         boolean[] n = new boolean[4];
         for (Employee empregado : empregados) {
-            if (Objects.equals(empregado.getRole(), "Administração")) {
+            if (empregado instanceof AdministrationStaff) {
                 n[0] = true;
                 break;
             }
         }
         for (Employee empregado : empregados) {
-            if (Objects.equals(empregado.getRole(), "Recepção")) {
+            if (empregado instanceof ReceptionStaff) {
                 n[1] = true;
                 break;
             }
         }
         for (Employee empregado : empregados) {
-            if (Objects.equals(empregado.getRole(), "Cozinha")) {
+            if (empregado instanceof CleaningStaff) {
                 n[2] = true;
                 break;
             }
         }
         for (Employee empregado : empregados) {
-            if (Objects.equals(empregado.getRole(), "Limpeza")) {
+            if (empregado instanceof CleaningStaff) {
                 n[3] = true;
                 break;
             }
@@ -113,8 +127,5 @@ public class ReceptionStaff extends Employee {
             }
         }
         return true;
-
-
-
     }
 }
