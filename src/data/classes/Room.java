@@ -25,8 +25,14 @@ public class Room {
         addCliente(cliente);
     }
 
-    public void removeClient(int slot) {
-        clientes[slot] = null;
+    public void removeClient(String nome) {
+        int index = 0;
+        for (Cliente cliente : clientes){
+            if (cliente.getName().equals(nome)){
+                clientes[index] = null;
+            }
+            index++;
+        }
     }
 
     public int getClientes() {

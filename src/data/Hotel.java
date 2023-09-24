@@ -15,31 +15,29 @@ public class Hotel {
     private static int count = 0;
     private int id = 1;
 
-    private final ReceptionStaff receptionStaff;
-
     // #LISTAS01
     private final ArrayList<Employee> empregados = new ArrayList<>();
     private final ArrayList<Cliente> clientes = new ArrayList<>();
     private final ArrayList<Room> quartos = new ArrayList<>();
+    private final String linha = "========================================================================";
     // #LISTAS01
 
-    public void addEmployee(Employee employee) {
-        empregados.add(employee);
+    public Hotel() {
+        id += count;
+        count++;
     }
 
     public void listEmployees() {
-        String linha = "========================================================================";
         System.out.println(linha + "\nLista de Funcionários:\n" + linha);
         for (Employee empregado : empregados) {
             System.out.println("ID: " + empregado.getID());
-            System.out.println(empregado.toString());
+            System.out.println(empregado);
             System.out.println(linha);
         }
     }
 
     public void deleteEmployee() {
 
-        String linha = "========================================================================";
         System.out.println(linha);
         System.out.print("Digite a ID do funcionário que deseja remover: ");
         int employeeID = scanner.nextInt();
@@ -63,12 +61,6 @@ public class Hotel {
         }
     }
 
-    public Hotel() {
-            receptionStaff = new ReceptionStaff("Nome do Recepcionista", "Sexo", 25, 3000.0);
-        id += count;
-        count++;
-    }
-
     public int getID() {
         return id;
     }
@@ -76,7 +68,6 @@ public class Hotel {
     public void actions() {
         int start;
         do {
-            String linha = "========================================================================";
             System.out.println(linha + "\nBem Vindo! Você está entrando ao Hall de comando do Hotel " + getID() + "\n" + linha);
             System.out.println("Escolha as opções de comando a seguir!\n" + linha);
             System.out.println("Selecione uma opção:");
@@ -84,9 +75,8 @@ public class Hotel {
             System.out.println("2. Deletar funcionários na lista");
             System.out.println("3. Comandar funções de Funcionários");
             System.out.println("4. Ver os funcionários do sistema");
-            System.out.println("5. Adicionar Clientes");
-            System.out.println("6. Registrar um novo quartos");
-            System.out.println("7. Sair\n" + linha);
+            System.out.println("5. Registrar um novo quartos");
+            System.out.println("6. Sair\n" + linha);
             // TODO: Precisamos fazer um CRUD para cada lista pesquise #LISTAS01, não precisa ter o update. Já foi feito o CRD de funcionários(CRD)
             start = scanner.nextInt();
             switch (start) {
@@ -147,14 +137,22 @@ public class Hotel {
                                     break;
                                 case "Recepção":
                                     ReceptionStaff r = (ReceptionStaff) empregado;
-                                    System.out.println(linha + "Olá, me chamo " + r.getName() + " em que posso ajudar?\n1. Cadastrar cliente\n2. Mostrar quartos disponíveis");
+                                    System.out.print(linha + "\nOlá, me chamo " + r.getName() + " em que posso ajudar?\n1. Cadastrar cliente\n2. Remover Cliente\n3. Mostrar clientes\n4. Mostrar quartos disponíveis\n5. nada\nEscolha: ");
                                     int recepChoice = scanner.nextInt();
                                     switch (recepChoice){
                                         case 1:
                                             r.addCliente(empregados, quartos, clientes, linha, scanner);
                                             break;
                                         case 2:
+                                            r.deleteClient(linha, scanner, clientes);
+                                            break;
+                                        case 3:
+                                            r.showClients(clientes, linha);
+                                            break;
+                                        case 4:
                                             r.showRoom(quartos, linha);
+                                            break;
+                                        case 5:
                                             break;
                                         default:
                                             break;
@@ -171,7 +169,11 @@ public class Hotel {
                                     System.out.println("Deseja limpar os quartos vazios? S/N");
                                     String limpar_quartos = scanner.next();
                                     if (limpar_quartos.equalsIgnoreCase("s")){
-                                        c.clearRoom();
+                                        for (Room room : quartos){
+                                            if (room.getClientes() == 0){
+                                                room.clear();
+                                            }
+                                        }
                                     } else if (limpar_quartos.equalsIgnoreCase("n")){
                                         System.out.println("Os quartos continuarão fechados até a hora da limpeza.");
                                     }
@@ -187,14 +189,11 @@ public class Hotel {
                     listEmployees();
                     break;
                 case 5:
-                    receptionStaff.addCliente(empregados, quartos, clientes, linha, scanner);
-                    break;
-                case 6:
                     Room newRoom = new Room();
                     quartos.add(quartos.size(), newRoom);
                     System.out.println(linha + "\nSala "  + newRoom.getID() + " adicionada!");
                     break;
-                case 7:
+                case 6:
                     break;
                 default:
                     System.out.println("Opção inválida.\n" + linha);
