@@ -61,6 +61,39 @@ public class Hotel {
         }
     }
 
+    public void listRooms() {
+        System.out.println("Lista de Quartos:\n" + linha);
+        if (quartos.isEmpty()) {
+            System.out.println("Nenhum quarto disponível.");
+        } else {
+            for (Room room : quartos) {
+                System.out.println("Quarto " + room.getID()); 
+            }
+        }
+    }
+
+    public void deleteRoom() {
+    
+        System.out.print("Digite a ID do quarto que deseja excluir: ");
+        int roomID = scanner.nextInt();
+    
+        Room roomToRemove = null;
+    
+        for (Room room : quartos) {
+            if (room.getID() == roomID) {
+                roomToRemove = room;
+                break;
+            }
+        }
+    
+        if (roomToRemove != null) {
+            quartos.remove(roomToRemove);
+            System.out.println(linha + "\nQuarto removido com sucesso.");
+        } else {
+            System.out.println(linha + "\nQuarto com ID " + roomID + " não encontrado.");
+        }
+    }
+
     public int getID() {
         return id;
     }
@@ -76,8 +109,9 @@ public class Hotel {
             System.out.println("3. Comandar funções de Funcionários");
             System.out.println("4. Ver os funcionários do sistema");
             System.out.println("5. Registrar um novo quartos");
-            System.out.println("6. Sair\n" + linha);
-            // TODO: Precisamos fazer um CRUD para cada lista pesquise #LISTAS01, não precisa ter o update. Já foi feito o CRD de funcionários(CRD)
+            System.out.println("6. Ver lista de quartos");
+            System.out.println("7. Excluir quartos");
+            System.out.println("8. Sair\n" + linha);
             start = scanner.nextInt();
             switch (start) {
                 case 1:
@@ -186,6 +220,7 @@ public class Hotel {
                     }
                     break;
                 case 4:
+                    System.out.println(linha);
                     listEmployees();
                     break;
                 case 5:
@@ -193,12 +228,19 @@ public class Hotel {
                     quartos.add(quartos.size(), newRoom);
                     System.out.println(linha + "\nSala "  + newRoom.getID() + " adicionada!");
                     break;
+
                 case 6:
+                    listRooms();
+                    break;
+                case 7:
+                    deleteRoom();
+                    break;
+                case 8:
                     break;
                 default:
                     System.out.println("Opção inválida.\n" + linha);
                     break;
             }
-        } while (start != 7);
+        } while (start != 8);
     }
 }
