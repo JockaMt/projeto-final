@@ -1,0 +1,10 @@
+/.vscode
+.project
+.classpath
+/bin
+.gitignore
+*.class
+out/
+.projeto-final.iml
+.idea/
+bin/
