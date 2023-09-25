@@ -15,12 +15,12 @@ public class Hotel {
     private static int count = 0;
     private int id = 1;
 
-    // #LISTAS01
+
     private final ArrayList<Employee> empregados = new ArrayList<>();
     private final ArrayList<Cliente> clientes = new ArrayList<>();
     private final ArrayList<Room> quartos = new ArrayList<>();
     private final String linha = "========================================================================";
-    // #LISTAS01
+
 
     public Hotel() {
         id += count;
@@ -169,29 +169,36 @@ public class Hotel {
                                         a.payEmployee(empregados.get(empregadoID));
                                     }
                                     break;
+                                    
                                 case "Recepção":
                                     ReceptionStaff r = (ReceptionStaff) empregado;
-                                    System.out.print(linha + "\nOlá, me chamo " + r.getName() + " em que posso ajudar?\n1. Cadastrar cliente\n2. Remover Cliente\n3. Mostrar clientes\n4. Mostrar quartos disponíveis\n5. nada\nEscolha: ");
-                                    int recepChoice = scanner.nextInt();
-                                    switch (recepChoice){
-                                        case 1:
-                                            r.addCliente(empregados, quartos, clientes, linha, scanner);
-                                            break;
-                                        case 2:
-                                            r.deleteClient(linha, scanner, clientes);
-                                            break;
-                                        case 3:
-                                            r.showClients(clientes, linha);
-                                            break;
-                                        case 4:
-                                            r.showRoom(quartos, linha);
-                                            break;
-                                        case 5:
-                                            break;
-                                        default:
-                                            break;
-                                    }
+                                    boolean receptionMenu = true;
+                                    do {
+                                        System.out.print(linha + "\nOlá, me chamo " + r.getName() + " em que posso ajudar?\n1. Cadastrar cliente\n2. Remover Cliente\n3. Mostrar clientes\n4. Mostrar quartos disponíveis\n5. Voltar para o menu principal\nEscolha: ");
+                                        int recepChoice = scanner.nextInt();
+                                
+                                        switch (recepChoice) {
+                                            case 1:
+                                                r.addCliente(empregados, quartos, clientes, linha, scanner);
+                                                break;
+                                            case 2:
+                                                r.deleteClient(linha, scanner, clientes);
+                                                break;
+                                            case 3:
+                                                r.showClients(clientes, linha);
+                                                break;
+                                            case 4:
+                                                r.showRoom(quartos, linha);
+                                                break;
+                                            case 5:
+                                                receptionMenu = false; 
+                                                break;
+                                            default:
+                                                break;
+                                        }
+                                    } while (receptionMenu);
                                     break;
+
                                 case "Cozinha":
                                     // TODO: Precisamos fazer com que as funções de cada classe funcione, nem que seja um print.
                                     // Falta a parte da cozinha.
