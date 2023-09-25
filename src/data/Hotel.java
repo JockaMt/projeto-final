@@ -200,8 +200,23 @@ public class Hotel {
                                     break;
 
                                 case "Cozinha":
-                                    // TODO: Precisamos fazer com que as funções de cada classe funcione, nem que seja um print.
-                                    // Falta a parte da cozinha.
+                                    KitchenStaff k = (KitchenStaff) empregado;
+                                    System.out.println("Qual refeição deseja servir?\n1. Café da Manhã\n2. Almoço\n3. Janta\n4. Lanche");
+                                    int KitchenChoice = scanner.nextInt();
+                                    switch (KitchenChoice){
+                                        case 1:
+                                            System.out.println("O Café da Manhã foi preparado e servido aos clientes.");
+                                        case 2:
+                                            System.out.println("O Almoço foi preparado e servido aos clientes.");
+                                        case 3:
+                                            System.out.println("O Jantar foi preparado e servido aos clientes.");
+                                        case 4:
+                                            System.out.println("O Lanche foi preparado e servido aos clientes.");
+                                        default:
+                                            break;
+                                    }
+                                    break;
+                                    // só uma base para as refeições diárias
                                     KitchenStaff k = (KitchenStaff) empregado;
                                     k.cook();
                                     break;

@@ -1,7 +1,5 @@
-/.vscode
 .project
 .classpath
-/bin
 .gitignore
 *.class
 out/
