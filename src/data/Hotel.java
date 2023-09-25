@@ -10,6 +10,10 @@ import data.classes.AdministrationStaff;
 import data.classes.CleaningStaff;
 import data.classes.Cliente;
 
+/**Classe para objetos do tipo Hotel, onde serão contidos méodos e propriedades para o mesmo.
+ * @author Jockson Mateus
+ * @version 1.0
+ */
 public class Hotel {
     private final Scanner scanner = new Scanner(System.in);
     private static int count = 0;
@@ -22,11 +26,13 @@ public class Hotel {
     private final String linha = "========================================================================";
 
 
+    /** Itera o ID automaticamente. */
     public Hotel() {
         id += count;
         count++;
     }
 
+    /** Lista todos os funcionários cadastrados no hotel, com todas as suas informações. */
     public void listEmployees() {
         System.out.println(linha + "\nLista de Funcionários:\n" + linha);
         for (Employee empregado : empregados) {
@@ -36,6 +42,7 @@ public class Hotel {
         }
     }
 
+    /** Deleta um funcionário por ID. */
     public void deleteEmployee() {
 
         System.out.println(linha);
@@ -61,6 +68,7 @@ public class Hotel {
         }
     }
 
+    /** Lista os quartos criados para este Hotel. */
     public void listRooms() {
         System.out.println("Lista de Quartos:\n" + linha);
         if (quartos.isEmpty()) {
@@ -72,6 +80,7 @@ public class Hotel {
         }
     }
 
+    /** Deleta um quarto por ID. */
     public void deleteRoom() {
     
         System.out.print("Digite a ID do quarto que deseja excluir: ");
@@ -94,10 +103,13 @@ public class Hotel {
         }
     }
 
+    /** Método que retorna o ID do hotel instanciado.
+     * @return int - ID do Hotel */
     public int getID() {
         return id;
     }
 
+    /** Método principal que permite o usuário utilizar todas as funções da classe Hotel. */
     public void actions() {
         int start;
         do {
