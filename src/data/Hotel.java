@@ -217,7 +217,6 @@ public class Hotel {
                                     }
                                     break;
                                     // só uma base para as refeições diárias
-                                    KitchenStaff k = (KitchenStaff) empregado;
                                     k.cook();
                                     break;
                                 case "Limpeza":
