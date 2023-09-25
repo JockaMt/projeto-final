@@ -1,11 +1,15 @@
 package data.classes;
 
 public class Employee extends Person {
+	private static int count = 0;
+
 	private double wage;
 	private String role;
 
 	public Employee (String name, String sex, int age, String role, double wage) {
 		super(name, sex, age);
+		setId(count);
+		count ++;
 		setRole(role);
 		setWage(wage);
 	}

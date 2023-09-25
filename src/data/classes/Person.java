@@ -1,15 +1,12 @@
 package data.classes;
 
 public abstract class Person {
-	private static int count = 0;
-    private int id = 1;
     private String name;
+	private int id = 1;
     private String sex;
     private int age;
 
 	public Person (String name, String sex, int age) {
-        id += count;
-        count ++;
 		setName(name);
 		setSex(sex);
 		setAge(age);
@@ -18,6 +15,10 @@ public abstract class Person {
     public int getID() {
         return id;
     }
+
+	public void setId(int count) {
+		id += count;
+	}
 
 	private void setName (String newName) {
 		this.name = newName;

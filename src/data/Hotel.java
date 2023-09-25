@@ -15,15 +15,83 @@ public class Hotel {
     private static int count = 0;
     private int id = 1;
 
-    // #LISTAS01
+
     private final ArrayList<Employee> empregados = new ArrayList<>();
     private final ArrayList<Cliente> clientes = new ArrayList<>();
     private final ArrayList<Room> quartos = new ArrayList<>();
-    // #LISTAS01
+    private final String linha = "========================================================================";
+
 
     public Hotel() {
         id += count;
         count++;
+    }
+
+    public void listEmployees() {
+        System.out.println(linha + "\nLista de Funcionários:\n" + linha);
+        for (Employee empregado : empregados) {
+            System.out.println("ID: " + empregado.getID());
+            System.out.println(empregado);
+            System.out.println(linha);
+        }
+    }
+
+    public void deleteEmployee() {
+
+        System.out.println(linha);
+        System.out.print("Digite a ID do funcionário que deseja remover: ");
+        int employeeID = scanner.nextInt();
+        
+        Employee employeeToRemove = null;
+
+        for (Employee empregado : empregados) {
+            if (empregado.getID() == employeeID) {
+                employeeToRemove = empregado;
+                break;
+            }
+        }
+
+        if (employeeToRemove != null) {
+            empregados.remove(employeeToRemove);
+            System.out.println(linha);
+            System.out.println("Funcionário removido com sucesso.");
+        } else {
+            System.out.println(linha);
+            System.out.println("Funcionário com ID " + employeeID + " não encontrado.");
+        }
+    }
+
+    public void listRooms() {
+        System.out.println("Lista de Quartos:\n" + linha);
+        if (quartos.isEmpty()) {
+            System.out.println("Nenhum quarto disponível.");
+        } else {
+            for (Room room : quartos) {
+                System.out.println("Quarto " + room.getID()); 
+            }
+        }
+    }
+
+    public void deleteRoom() {
+    
+        System.out.print("Digite a ID do quarto que deseja excluir: ");
+        int roomID = scanner.nextInt();
+    
+        Room roomToRemove = null;
+    
+        for (Room room : quartos) {
+            if (room.getID() == roomID) {
+                roomToRemove = room;
+                break;
+            }
+        }
+    
+        if (roomToRemove != null) {
+            quartos.remove(roomToRemove);
+            System.out.println(linha + "\nQuarto removido com sucesso.");
+        } else {
+            System.out.println(linha + "\nQuarto com ID " + roomID + " não encontrado.");
+        }
     }
 
     public int getID() {
@@ -33,16 +101,17 @@ public class Hotel {
     public void actions() {
         int start;
         do {
-            String linha = "========================================================================";
             System.out.println(linha + "\nBem Vindo! Você está entrando ao Hall de comando do Hotel " + getID() + "\n" + linha);
             System.out.println("Escolha as opções de comando a seguir!\n" + linha);
             System.out.println("Selecione uma opção:");
             System.out.println("1. Criar funcionário novo");
-            System.out.println("2. Comandar funções de Funcionários");
-            System.out.println("3. Ver os funcionários do sistema");
-            System.out.println("4. Registrar um novo quartos");
-            System.out.println("5. Sair\n" + linha);
-            // TODO: Precisamos fazer um CRUD para cada lista pesquise #LISTAS01, não precisa ter o update. (CRD)
+            System.out.println("2. Deletar funcionários na lista");
+            System.out.println("3. Comandar funções de Funcionários");
+            System.out.println("4. Ver os funcionários do sistema");
+            System.out.println("5. Registrar um novo quartos");
+            System.out.println("6. Ver lista de quartos");
+            System.out.println("7. Excluir quartos");
+            System.out.println("8. Sair\n" + linha);
             start = scanner.nextInt();
             switch (start) {
                 case 1:
@@ -76,6 +145,9 @@ public class Hotel {
                     }
                     break;
                 case 2:
+                    deleteEmployee();
+                    break;
+                case 3:
                     System.out.print(linha + "\nDigite o ID do funcionário: ");
                     int id = scanner.nextInt();
                     for (Employee empregado : empregados) {
@@ -97,21 +169,36 @@ public class Hotel {
                                         a.payEmployee(empregados.get(empregadoID));
                                     }
                                     break;
+                                    
                                 case "Recepção":
                                     ReceptionStaff r = (ReceptionStaff) empregado;
-                                    System.out.println(linha + "Olá, me chamo " + r.getName() + " em que posso ajudar?\n1. Cadastrar cliente\n2. Mostrar quartos disponíveis");
-                                    int recepChoice = scanner.nextInt();
-                                    switch (recepChoice){
-                                        case 1:
-                                            r.addCliente(empregados, quartos, clientes, linha, scanner);
-                                            break;
-                                        case 2:
-                                            r.showRoom(quartos, linha);
-                                            break;
-                                        default:
-                                            break;
-                                    }
+                                    boolean receptionMenu = true;
+                                    do {
+                                        System.out.print(linha + "\nOlá, me chamo " + r.getName() + " em que posso ajudar?\n1. Cadastrar cliente\n2. Remover Cliente\n3. Mostrar clientes\n4. Mostrar quartos disponíveis\n5. Voltar para o menu principal\nEscolha: ");
+                                        int recepChoice = scanner.nextInt();
+                                
+                                        switch (recepChoice) {
+                                            case 1:
+                                                r.addCliente(empregados, quartos, clientes, linha, scanner);
+                                                break;
+                                            case 2:
+                                                r.deleteClient(linha, scanner, clientes);
+                                                break;
+                                            case 3:
+                                                r.showClients(clientes, linha);
+                                                break;
+                                            case 4:
+                                                r.showRoom(quartos, linha);
+                                                break;
+                                            case 5:
+                                                receptionMenu = false; 
+                                                break;
+                                            default:
+                                                break;
+                                        }
+                                    } while (receptionMenu);
                                     break;
+
                                 case "Cozinha":
                                     KitchenStaff k = (KitchenStaff) empregado;
                                     System.out.println("Qual refeição deseja servir?\n1. Café da Manhã\n2. Almoço\n3. Janta\n4. Lanche");
@@ -138,7 +225,11 @@ public class Hotel {
                                     System.out.println("Deseja limpar os quartos vazios? S/N");
                                     String limpar_quartos = scanner.next();
                                     if (limpar_quartos.equalsIgnoreCase("s")){
-                                        c.clearRoom();
+                                        for (Room room : quartos){
+                                            if (room.getClientes() == 0){
+                                                room.clear();
+                                            }
+                                        }
                                     } else if (limpar_quartos.equalsIgnoreCase("n")){
                                         System.out.println("Os quartos continuarão fechados até a hora da limpeza.");
                                     }
@@ -150,22 +241,28 @@ public class Hotel {
                         }
                     }
                     break;
-                case 3:
-                    for (Employee empregado : empregados) {
-                        System.out.println(linha + "\nID: " + empregado.getID() + "\n" + empregado);
-                    }
-                    break;
                 case 4:
-                    Room newRoom = new Room();
-                    quartos.add(quartos.size(), newRoom);
-                    System.out.println(linha + "Sala " + newRoom.getID() + " adicionada!");
+                    System.out.println(linha);
+                    listEmployees();
                     break;
                 case 5:
+                    Room newRoom = new Room();
+                    quartos.add(quartos.size(), newRoom);
+                    System.out.println(linha + "\nSala "  + newRoom.getID() + " adicionada!");
+                    break;
+
+                case 6:
+                    listRooms();
+                    break;
+                case 7:
+                    deleteRoom();
+                    break;
+                case 8:
                     break;
                 default:
                     System.out.println("Opção inválida.\n" + linha);
                     break;
             }
-        } while (start != 7);
+        } while (start != 8);
     }
 }
