@@ -1,3 +1,4 @@
+/** Pacote que contem a classe Hotel.java e outro pacote */
 package data;
 
 import java.util.ArrayList;
@@ -26,14 +27,16 @@ public class Hotel {
     private final String linha = "========================================================================";
 
 
-    /** Itera o ID automaticamente. */
+    /** Itera o ID automaticamente.
+    */
     public Hotel() {
         id += count;
         count++;
     }
 
-    /** Lista todos os funcionários cadastrados no hotel, com todas as suas informações. */
-    public void listEmployees() {
+    /** Lista todos os funcionários cadastrados no hotel, com todas as suas informações.
+     * @author Jairon Santos */
+    private void listEmployees() {
         System.out.println(linha + "\nLista de Funcionários:\n" + linha);
         for (Employee empregado : empregados) {
             System.out.println("ID: " + empregado.getID());
@@ -42,8 +45,9 @@ public class Hotel {
         }
     }
 
-    /** Deleta um funcionário por ID. */
-    public void deleteEmployee() {
+    /** Deleta um funcionário por ID.
+     * @author Jairon Santos */
+    private void deleteEmployee() {
 
         System.out.println(linha);
         System.out.print("Digite a ID do funcionário que deseja remover: ");
@@ -68,8 +72,10 @@ public class Hotel {
         }
     }
 
-    /** Lista os quartos criados para este Hotel. */
-    public void listRooms() {
+    /** Lista os quartos criados para este Hotel.
+     * @author Jairon Santos
+     */
+    private void listRooms() {
         System.out.println("Lista de Quartos:\n" + linha);
         if (quartos.isEmpty()) {
             System.out.println("Nenhum quarto disponível.");
@@ -80,8 +86,10 @@ public class Hotel {
         }
     }
 
-    /** Deleta um quarto por ID. */
-    public void deleteRoom() {
+    /** Deleta um quarto por ID.
+     * @author Jairon Santos
+     */
+    private void deleteRoom() {
     
         System.out.print("Digite a ID do quarto que deseja excluir: ");
         int roomID = scanner.nextInt();
@@ -104,12 +112,14 @@ public class Hotel {
     }
 
     /** Método que retorna o ID do hotel instanciado.
-     * @return int - ID do Hotel */
+     * @return int - ID do Hotel
+    */
     public int getID() {
         return id;
     }
 
-    /** Método principal que permite o usuário utilizar todas as funções da classe Hotel. */
+    /** Método principal que permite o usuário utilizar todas as funções da classe Hotel.
+    */
     public void actions() {
         int start;
         do {
@@ -213,7 +223,7 @@ public class Hotel {
 
                                 case "Cozinha":
                                     KitchenStaff k = (KitchenStaff) empregado;
-                                    k.cook();
+                                    k.cook(scanner);
                                     break;
                                 case "Limpeza":
                                     CleaningStaff c = (CleaningStaff) empregado;

@@ -2,23 +2,47 @@ package data.classes;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/** Classe do cargo de recepção.
+ */
 public class ReceptionStaff extends Employee {
+
+    /** Apenas define a string do cargo como Recepção.
+     * @param name String - Nome do funcionário.
+     * @param sex String - Sexo do funcionário.
+     * @param age int - Idade do funcionário.
+     * @param wage double - Salário padrão do funcionário.
+    */
     public ReceptionStaff(String name, String sex, int age, double wage) {
         super(name, sex, age, "Recepção", wage);
     }
 
+    /** Mostra uma lista de todos os quartos registrados no hotel.
+     * @param quartos Room - Lista onde está armazenado os quartos.
+     * @param linha String - String para decoração das impressões. (Divisor)
+    */
     public void showRoom (ArrayList<Room> quartos, String linha) {
         for (Room room : quartos){
             System.out.println(linha + "\nID: " + room.getID() + " ---- " + "Capacidade: " + room.getClientes() + "/4");
         }
     }
 
+    /** Mostra uma lista de todos os clientes registrados no hotel.
+     * @param clientes ArrayList - Lista onde está armazenado os clientes.
+     * @param linha String - String para decoração das impressões. (Divisor)
+    */
     public void showClients (ArrayList<Cliente> clientes, String linha) {
         for (Cliente cliente : clientes) {
             System.out.println(linha + "\nID: " + cliente.getID() + " ---- " + cliente.getName());
         }
     }
 
+    /** Realiza o cadastro de clientes no hotel.
+     * @param clientes ArrayList - Lista onde está armazenado os clientes.
+     * @param quartos ArrayList - Lista onde está armazenado os quartos.
+     * @param empregados ArrayList - Lista onde está armazenado os clientes.
+     * @param linha String - String para decoração das impressões. (Divisor)
+     * @param scanner Scanner - Scanner para digitar no menu.
+    */
     public void addCliente(ArrayList<Employee> empregados, ArrayList<Room> quartos, ArrayList<Cliente> clientes, String linha, Scanner scanner) {
         if (verifyOpen(empregados)) {
             if (verifyRooms(quartos)) {
@@ -51,6 +75,11 @@ public class ReceptionStaff extends Employee {
         }
     }
 
+    /** Remove o cadastro de um usuário por meio do ID do usuário.
+     * @param clientes ArrayList - Lista onde está armazenado os clientes.
+     * @param scanner Scanner - Scanner para digitar no menu.
+     * @param linha String - String para decoração das impressões. (Divisor)
+    */
     public void deleteClient(String linha, Scanner scanner, ArrayList<Cliente> clientes) {
 
         System.out.println(linha);
@@ -76,10 +105,12 @@ public class ReceptionStaff extends Employee {
         }
     }
 
-    public Boolean verifyRooms(ArrayList<Room> quartos) {
-        /* Aqui verificamos se o hotel tem quartos e se os quartos têm espaço para mais
-           um cliente.
-           No diagrama está escrito que um quarto só pode guardar até 4 cliente.  */
+    /** Aqui verificamos se o hotel tem quartos e se os quartos têm espaço para mais
+     um cliente. Um quarto só pode guardar até 4 cliente.
+     * @param quartos ArrayList - Lista onde está armazenado os quartos.
+     * @return boolean - Quarto pode receber mais um cliente?
+    */
+    public boolean verifyRooms(ArrayList<Room> quartos) {
         if (!quartos.isEmpty()) {
             for (Room quarto : quartos) {
                 if (quarto.getClientes() < 4) {
@@ -91,11 +122,11 @@ public class ReceptionStaff extends Employee {
         return false;
     }
 
-    public Boolean verifyOpen(ArrayList<Employee> empregados) {
-        /* Como no diagrama temos que só podemos colocar clientes se todas as vagas
-           estiverem ocupadas, fazemos essa verificação.
-           Uma lista de boolean, se toda a lista for true, então o hotel tem todas as
-           funções ativas. */
+    /** Verifica se o hotel tem funcionários suficiente para funcionar corretamente. Um hotel precisa ter um funcionário para cada cargo.
+     * @param empregados ArrayList - Lista onde está armazenado os empregados.
+     * @return boolean - Hotel tem todos os cargos com pelo menos um funcionário.
+    */
+    public boolean verifyOpen(ArrayList<Employee> empregados) {
         boolean[] n = new boolean[4];
         for (Employee empregado : empregados) {
             if (empregado instanceof AdministrationStaff) {
