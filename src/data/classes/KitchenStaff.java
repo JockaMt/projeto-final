@@ -2,8 +2,7 @@ package data.classes;
 
 import java.util.Scanner;
 
-/** Classe do cargo de cozinha.
- * @author Luiz Henrique*/
+/** Classe do cargo de cozinha.*/
 public class KitchenStaff extends Employee {
 
     /** Apenas defini a string do cargo como Cozinha.
@@ -16,8 +15,7 @@ public class KitchenStaff extends Employee {
     }
 
     /** Só para ter um método na classe.
-     * @param scanner Scanner - Scanner para realizar as ações do menu.
-     * @author Luiz Henrique*/
+     * @param scanner Scanner - Scanner para realizar as ações do menu.*/
     public void cook(Scanner scanner) {
         System.out.println("Qual refeição deseja servir?\n1. Café da Manhã\n2. Almoço\n3. Janta\n4. Lanche");
         int KitchenChoice = scanner.nextInt();

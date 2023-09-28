@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 /** Classe do cargo de limpeza.
- * @author Jockson Mateus
  */
 public class CleaningStaff extends Employee {
     /** Apenas defini a string do cargo como Limpeza.
@@ -19,8 +18,7 @@ public class CleaningStaff extends Employee {
 
     /** Imprime no console os quartos limpos.
      * @param scanner Scanner - Scanner para digitar no menu.
-     * @param quartos ArrayList - Lista onde está armazenado os quartos.
-     * @author Luiz Henrique */
+     * @param quartos ArrayList - Lista onde está armazenado os quartos.*/
     public void clearRoom(Scanner scanner, ArrayList<Room> quartos) {
         System.out.println("Deseja limpar os quartos vazios? S/N");
         String limpar_quartos = scanner.next();

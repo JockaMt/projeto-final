@@ -1,7 +1,6 @@
 package data.classes;
 
 /** Classe do cargo de Administração.
- * @author Jockson Mateus
  */
 public class AdministrationStaff extends Employee {
 
@@ -24,8 +23,7 @@ public class AdministrationStaff extends Employee {
 
     /** Imprime no console o valor pago ao funcionário com o acréscimo de um valor escolhido.
      * @param e Employee - Empregado que será pago.
-     * @param aumento double - Aumento do salário.
-     * @author Jockson Mateus*/
+     * @param aumento double - Aumento do salário.*/
     public void payEmployee (Employee e, double aumento) {
         e.receiveWage(aumento);
     }

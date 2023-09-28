@@ -1,7 +1,6 @@
 package data.classes;
 
 /** Classe do cargo de recepção.
- * @author Jockson Mateus
  */
 public class Cliente extends Person {
     private static int count = 0;

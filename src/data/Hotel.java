@@ -12,7 +12,6 @@ import data.classes.CleaningStaff;
 import data.classes.Cliente;
 
 /**Classe para objetos do tipo Hotel, onde serão contidos méodos e propriedades para o mesmo.
- * @author Jockson Mateus
  * @version 1.0
  */
 public class Hotel {
@@ -34,8 +33,7 @@ public class Hotel {
         count++;
     }
 
-    /** Lista todos os funcionários cadastrados no hotel, com todas as suas informações.
-     * @author Jairon Santos */
+    /** Lista todos os funcionários cadastrados no hotel, com todas as suas informações.*/
     private void listEmployees() {
         System.out.println(linha + "\nLista de Funcionários:\n" + linha);
         for (Employee empregado : empregados) {
@@ -45,8 +43,7 @@ public class Hotel {
         }
     }
 
-    /** Deleta um funcionário por ID.
-     * @author Jairon Santos */
+    /** Deleta um funcionário por ID.*/
     private void deleteEmployee() {
 
         System.out.println(linha);
@@ -73,7 +70,6 @@ public class Hotel {
     }
 
     /** Lista os quartos criados para este Hotel.
-     * @author Jairon Santos
      */
     private void listRooms() {
         System.out.println("Lista de Quartos:\n" + linha);
@@ -87,7 +83,6 @@ public class Hotel {
     }
 
     /** Deleta um quarto por ID.
-     * @author Jairon Santos
      */
     private void deleteRoom() {
     
