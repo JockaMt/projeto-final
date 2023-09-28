@@ -1,50 +1,46 @@
-/** Pacote que contem a classe Hotel.java e outro pacote */
 package data;
+
 
 import java.util.ArrayList;
 import java.util.Scanner;
-import data.classes.Employee;
-import data.classes.KitchenStaff;
-import data.classes.ReceptionStaff;
-import data.classes.Room;
-import data.classes.AdministrationStaff;
-import data.classes.CleaningStaff;
-import data.classes.Cliente;
+import data.classes.*;
 
-/**Classe para objetos do tipo Hotel, onde serão contidos méodos e propriedades para o mesmo.
- * @version 1.0
- */
+
 public class Hotel {
+
+
     private final Scanner scanner = new Scanner(System.in);
     private static int count = 0;
     private int id = 1;
-
-
     private final ArrayList<Employee> empregados = new ArrayList<>();
     private final ArrayList<Cliente> clientes = new ArrayList<>();
     private final ArrayList<Room> quartos = new ArrayList<>();
     private final String linha = "========================================================================";
 
 
-    /** Itera o ID automaticamente.
-    */
     public Hotel() {
         id += count;
         count++;
     }
 
-    /** Lista todos os funcionários cadastrados no hotel, com todas as suas informações.*/
     private void listEmployees() {
-        System.out.println(linha + "\nLista de Funcionários:\n" + linha);
+        if (empregados.isEmpty()) {
+            System.out.println("Este hotel não possui funcionários.");
+            return;
+        }
+        System.out.println("Lista de Funcionários:\n" + linha);
         for (Employee empregado : empregados) {
             System.out.println("ID: " + empregado.getID());
             System.out.println(empregado);
-            System.out.println(linha);
         }
     }
 
-    /** Deleta um funcionário por ID.*/
     private void deleteEmployee() {
+
+        if (empregados.isEmpty()){
+            System.out.println(linha + "Este hotel ainda não possui empregados.");
+            return;
+        }
 
         System.out.println(linha);
         System.out.print("Digite a ID do funcionário que deseja remover: ");
@@ -58,7 +54,7 @@ public class Hotel {
                 break;
             }
         }
-
+        new ClearTerminal();
         if (employeeToRemove != null) {
             empregados.remove(employeeToRemove);
             System.out.println(linha);
@@ -69,26 +65,21 @@ public class Hotel {
         }
     }
 
-    /** Lista os quartos criados para este Hotel.
-     */
     private void listRooms() {
-        System.out.println("Lista de Quartos:\n" + linha);
+        System.out.println(linha + "\nLista de Quartos:\n" + linha);
         if (quartos.isEmpty()) {
             System.out.println("Nenhum quarto disponível.");
         } else {
             for (Room room : quartos) {
-                System.out.println("Quarto " + room.getID()); 
+                System.out.println("Quarto " + room.getID() + " --- Hóspedes: " + room.getClientes() + "/4");
             }
         }
     }
 
-    /** Deleta um quarto por ID.
-     */
     private void deleteRoom() {
-    
-        System.out.print("Digite a ID do quarto que deseja excluir: ");
+
+        System.out.print(linha + "\nDigite a ID do quarto que deseja excluir: ");
         int roomID = scanner.nextInt();
-    
         Room roomToRemove = null;
     
         for (Room room : quartos) {
@@ -97,8 +88,8 @@ public class Hotel {
                 break;
             }
         }
-    
-        if (roomToRemove != null) {
+        new ClearTerminal();
+        if (roomToRemove != null){
             quartos.remove(roomToRemove);
             System.out.println(linha + "\nQuarto removido com sucesso.");
         } else {
@@ -106,34 +97,20 @@ public class Hotel {
         }
     }
 
-    /** Método que retorna o ID do hotel instanciado.
-     * @return int - ID do Hotel
-    */
     public int getID() {
         return id;
     }
 
-    /** Método principal que permite o usuário utilizar todas as funções da classe Hotel.
-    */
     public void actions() {
+        new ClearTerminal();
         int start;
         do {
-            System.out.println(linha + "\nBem Vindo! Você está entrando ao Hall de comando do Hotel " + getID() + "\n" + linha);
-            System.out.println("Escolha as opções de comando a seguir!\n" + linha);
-            System.out.println("Selecione uma opção:");
-            System.out.println("1. Criar funcionário novo");
-            System.out.println("2. Deletar funcionários na lista");
-            System.out.println("3. Comandar funções de Funcionários");
-            System.out.println("4. Ver os funcionários do sistema");
-            System.out.println("5. Registrar um novo quartos");
-            System.out.println("6. Ver lista de quartos");
-            System.out.println("7. Excluir quartos");
-            System.out.println("8. Sair\n" + linha);
+            System.out.print(menu());
             start = scanner.nextInt();
             switch (start) {
                 case 1:
                     System.out.println(linha + "\nEscolha uma área:");
-                    System.out.println("1. Administração\n2. Recepção\n3. Cozinha\n4. Limpeza");
+                    System.out.print("1. Administração\n2. Recepção\n3. Cozinha\n4. Limpeza\n$ ");
                     int choice = scanner.nextInt();
                     System.out.print(linha + "\nQual o nome do funcionário: ");
                     String name = scanner.next();
@@ -160,8 +137,10 @@ public class Hotel {
                             System.out.println("Opção inválida.\n" + linha);
                             break;
                     }
+                    new ClearTerminal();
                     break;
                 case 2:
+                    new ClearTerminal();
                     deleteEmployee();
                     break;
                 case 3:
@@ -231,20 +210,28 @@ public class Hotel {
                     }
                     break;
                 case 4:
+                    new ClearTerminal();
                     System.out.println(linha);
                     listEmployees();
                     break;
                 case 5:
+                    new ClearTerminal();
                     Room newRoom = new Room();
                     quartos.add(quartos.size(), newRoom);
                     System.out.println(linha + "\nSala "  + newRoom.getID() + " adicionada!");
                     break;
 
                 case 6:
+                    new ClearTerminal();
                     listRooms();
                     break;
                 case 7:
-                    deleteRoom();
+                    new ClearTerminal();
+                    if (!quartos.isEmpty()) {
+                        deleteRoom();
+                    } else {
+                        System.out.println("Este hotel não possui quartos.");
+                    }
                     break;
                 case 8:
                     break;
@@ -253,5 +240,10 @@ public class Hotel {
                     break;
             }
         } while (start != 8);
+    }
+
+    String menu (){
+        String breakLine = "\n";
+        return linha + breakLine + "Bem Vindo! Você está entrando ao Hall de comando do Hotel " + getID() + breakLine  + linha + breakLine + "Selecione uma opção:" + breakLine + "1. Criar funcionário novo" + breakLine + "2. Deletar funcionários na lista" + breakLine + "3. Comandar funções de Funcionários" + breakLine + "4. Ver os funcionários do sistema" + breakLine + "5. Registrar um novo quartos" + breakLine + "6. Ver lista de quartos" + breakLine + "7. Excluir quartos" + breakLine + "8. Sair" + breakLine + "$ ";
     }
 }

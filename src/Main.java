@@ -1,42 +1,60 @@
 import data.Hotel;
+import data.classes.ClearTerminal;
 
 import java.util.ArrayList;
 import java.util.Scanner;
 
-/** Class Main. */
-public class Main {
-	private final ArrayList<Hotel> hoteis = new ArrayList<>();
-	private final Scanner scanner = new Scanner(System.in);
 
-	public static void main(String[] args){ new Main(); }
-	/** Começa o gerenciamento de hotéis. */
-    Main() {
-		action();
+public class Main {
+	private final ArrayList<Hotel> hotels = new ArrayList<>();
+	private final Scanner scanner = new Scanner(System.in);
+	private final String linha = "========================================================================";
+
+	public static void main(String[] args){
+		Main instance = new Main();
+		instance.action();
 	}
 
-	/** Inicia o menu de gerenciamento. */
 	public void action(){
 		boolean loop = true;
 		do {
 			System.out.println(message());
+			System.out.print("$ ");
 			int selection = scanner.nextInt();
 			int ID;
 			switch (selection) {
 				case 1:
+					new ClearTerminal();
+					System.out.println(linha);
 					createHotel();
 					break;
 				case 2:
-					ID = scanner.nextInt();
-					accessHotel(ID);
+					new ClearTerminal();
+					System.out.println(linha);
+					if(verifyHotel()){
+						System.out.print("Acessar Hotel\n\nID do Hotel: ");
+						ID = scanner.nextInt();
+						new ClearTerminal();
+						accessHotel(ID);
+					}
 					break;
 				case 3:
-					ID = scanner.nextInt();
-					removeHotel(ID);
+					new ClearTerminal();
+					System.out.println(linha);
+					if (verifyHotel()){
+						System.out.print("Remover Hotel\n\nID do Hotel: ");
+						ID = scanner.nextInt();
+						removeHotel(ID);
+					}
 					break;
 				case 4:
+					new ClearTerminal();
+					System.out.println(linha);
 					listHotel();
 					break;
 				case 5:
+					new ClearTerminal();
+					loop = false;
 					break;
 				default:
 					System.out.println("Opção inválida.");
@@ -46,37 +64,61 @@ public class Main {
 		} while (loop);
 	}
 
-	/** Cria a instância de um hotel e adiciona na lista de hotéis. */
 	private void createHotel(){
-		hoteis.add(new Hotel());
+		Hotel novo = new Hotel();
+		hotels.add(novo);
+		System.out.println("Hotel "+novo.getID()+ " criado.");
 	}
 
-	/** Acessa um hotel via ID.
-	 * @param index int - Index do hotel que deseja acessar.*/
-	private void accessHotel(int index){
-		hoteis.get(index - 1).actions();
+	private void accessHotel(int ID){
+		for (Hotel hotel : hotels) {
+			try {
+				if (hotel.getID() == ID) {
+					System.out.println(hotel.getID());
+					hotel.actions();
+					return;
+				}
+			} catch (Exception e){
+				new ClearTerminal();
+				System.out.println(linha);
+				System.out.println("Este Hotel não existe.");
+			}
+		}
 	}
 
-	/** Remove um hotel via ID.
-	 * @param ID int - ID do hotel que deseja remover. */
 	private void removeHotel(int ID){
-		for (Hotel hotel : hoteis){
-			if (hotel.getID() == (hoteis.get(ID)).getID()){
-				hoteis.remove(hoteis.get(ID));
-			};
+		for (Hotel hotel : hotels) {
+			try {
+				if (hotel.getID() == ID) {
+					System.out.println(hotel.getID());
+					hotels.remove(hotel);
+					return;
+				}
+			} catch (Exception e){
+				new ClearTerminal();
+				System.out.println(linha);
+				System.out.println("Este Hotel não existe.");
+			}
 		}
 	}
 
-	/** Lita todos os hotéis cadastrados. */
 	private void listHotel(){
-		for (Hotel hotel : hoteis){
-			System.out.println("Hotel ID: " + hotel.getID());
+		if (verifyHotel()){
+			for (Hotel hotel : hotels){
+				System.out.println("Hotel ID: " + hotel.getID());
+			}
 		}
 	}
 
-	/** Apenas uma mensagem para o menu.
-	 * @return String - Menu. */
 	private String message(){
-		return "1. Criar um Hotel.\n2. Acessar um Hotel.\n3. Remover um Hotel.\n4. Listar todos os Hoteis.\n5. Sair.";
+		return linha + "\nBem Vindo! Você está no menu principal.\n" + linha + "\n1. Criar um Hotel.\n2. Acessar um Hotel.\n3. Remover um Hotel.\n4. Listar todos os Hotéis.\n5. Sair.";
+	}
+
+	private boolean verifyHotel(){
+		if (hotels.isEmpty()){
+			System.out.println("Nenhum hotel cadastrado.");
+			return false;
+		}
+		return true;
 	}
 }
