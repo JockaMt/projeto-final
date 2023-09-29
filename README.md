@@ -1,5 +1,9 @@
 ﻿# projeto-final
 
+
+> Atenção para a [**documentação**](https://github.com/jockaplay/projeto-final/wiki) do projeto.
+
+
 Conteúdo
 ---
 Este projeto baseia-se em uma estrutura de gerenciamento de hotéis requisitado pelo professor Tércio para conclusão da disciplina de Programação Orientada à Objeto.
