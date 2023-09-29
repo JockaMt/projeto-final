@@ -1,7 +1,7 @@
 package data.classes;
 
 
-public class Employee extends Person {
+public abstract class Employee extends Person {
 
 	private static int count = 0;
 	private double wage;

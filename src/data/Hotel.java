@@ -32,6 +32,13 @@ public class Hotel {
         for (Employee empregado : empregados) {
             System.out.println("ID: " + empregado.getID());
             System.out.println(empregado);
+            try {
+                if (empregado != empregados.get(empregados.size() - 1)){
+                    System.out.println(linha);
+                }
+            } catch (Exception e){
+                System.err.println(e.getMessage());
+            }
         }
     }
 
